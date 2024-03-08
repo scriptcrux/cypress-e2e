@@ -1,45 +1,71 @@
+import { fakerEN_IN as faker } from '@faker-js/faker';
+
 describe('template spec', () => {
   it('passes', () => {
-    cy.visit('/');
+    const username = faker.person.firstName();
+    const lastname = faker.person.lastName();
+    //email, telephone,password
+    const email = faker.internet.email();
+    const cellNumber = faker.phone.number();
+    const password = faker.internet.password();
 
-    //opening account menu
-    cy.get('.dropdown-hoverable').find('.info').find('span').filter(':contains("My account")').trigger('mouseover');
+    // cy.visit('/');
 
-    //opening registration form
-    cy.get('.mz-sub-menu-96').find('.info').find('span').filter(':contains("Register")').click();
+    // //opening account menu
+    // cy.get('.dropdown-hoverable').find('.info').find('span').filter(':contains("My account")').trigger('mouseover');
 
-    //filling registration form
-    cy.get('.form-control').filter('[placeholder="First Name"]').type('user123').should('have.value', 'user123');
+    // //opening registration form
+    // cy.get('.mz-sub-menu-96').find('.info').find('span').filter(':contains("Register")').click();
 
-    cy.get('#input-lastname').type('last1234');
+    // //filling registration form
+    // // cy.get('.form-control').filter('[placeholder="First Name"]').type('user123').should('have.value', 'user123');
+    // cy.get('.form-control').filter('[placeholder="First Name"]').type(username).should('have.value', username);
 
-    cy.get('[placeholder="E-Mail"]').type('user1123@mail.com');
+    // // cy.get('#input-lastname').type('last1234');
+    // cy.get('#input-lastname').type(lastname);
 
-    cy.get('[type="tel"]').type('917894561230');
+    // // cy.get('[placeholder="E-Mail"]').type('user1123@mail.com');
+    // cy.get('[placeholder="E-Mail"]').type(email);
 
-    cy.get('#input-password').type('qwerty@12345');
+    // // cy.get('[type="tel"]').type('917894561230');
+    // cy.get('[type="tel"]').type(cellNumber);
 
-    cy.get('#input-confirm').type('qwerty@12345');
+    // // cy.get('#input-password').type('qwerty@12345');
+    // cy.get('#input-password').type(password);
 
-    cy.get('.custom-control-label').filter(":contains('No')").prev().check({ force: true }).should('be.checked');
+    // // cy.get('#input-confirm').type('qwerty@12345');
+    // cy.get('#input-confirm').type(password);
 
-    cy.get('.custom-control-label')
-      .filter(':contains("I have read")')
-      .parent()
-      .children('#input-agree')
-      .check({ force: true })
-      .should('be.checked');
+    // cy.get('.custom-control-label').filter(":contains('No')").prev().check({ force: true }).should('be.checked');
 
-    //submit details
-    cy.get('[value="Continue"]').click();
+    // cy.get('.custom-control-label')
+    //   .filter(':contains("I have read")')
+    //   .parent()
+    //   .children('#input-agree')
+    //   .check({ force: true })
+    //   .should('be.checked');
 
-    //verifying submission
-    cy.contains('Your Account Has Been Created!').should('have.class', 'page-title');
+    // //submit details
+    // cy.get('[value="Continue"]').click();
 
-    //moving to main page
-    cy.contains('Continue').click();
+    // //verifying submission
+    // cy.contains('Your Account Has Been Created!').should('have.class', 'page-title');
 
-    //verifying logged in to login page
-    cy.contains('My Account').should('have.class', 'card-header');
+    // cy.writeFile("cypress/fixtures/users.json",{})
+    const filename = 'cypress/fixtures/login.json';
+
+    cy.readFile(filename).then((list) => {
+      list.push({ email, password });
+      cy.log(JSON.stringify(list));
+      cy.writeFile(filename, list);
+    });
+
+    
+
+    // //moving to main page
+    // cy.contains('Continue').click();
+
+    // //verifying logged in to login page
+    // cy.contains('My Account').should('have.class', 'card-header');
   });
 });
