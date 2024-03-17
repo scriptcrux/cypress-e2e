@@ -1,12 +1,13 @@
 import { fakerEN_IN as faker } from '@faker-js/faker';
+import * as fs from 'fs';
 
 describe('template spec', () => {
   it('passes', () => {
-    const username = faker.person.firstName();
-    const lastname = faker.person.lastName();
-    //email, telephone,password
+    // const username = faker.person.firstName();
+    // const lastname = faker.person.lastName();
+    // //email, telephone,password
     const email = faker.internet.email();
-    const cellNumber = faker.phone.number();
+    // const cellNumber = faker.phone.number();
     const password = faker.internet.password();
 
     // cy.visit('/');
@@ -52,15 +53,35 @@ describe('template spec', () => {
     // cy.contains('Your Account Has Been Created!').should('have.class', 'page-title');
 
     // cy.writeFile("cypress/fixtures/users.json",{})
-    const filename = 'cypress/fixtures/login.json';
+    // const filename = 'cypress/fixtures/login.json';
 
-    cy.readFile(filename).then((list) => {
-      list.push({ email, password });
-      cy.log(JSON.stringify(list));
-      cy.writeFile(filename, list);
-    });
+    // cy.readFile(filename).then((list) => {
+    //   list.push({ email, password });
+    //   cy.log(JSON.stringify(list));
+    //   cy.writeFile(filename, list);
+    // });
 
-    
+    // cy.fixture('login.csv')
+    //   .then(neatCSv)
+    //   .then((data) => (loginData = data));
+
+    const csvUsers = Cypress.env('usersList');
+    cy.log('csvUsers=>', csvUsers);
+
+    const filename = 'cypress/fixtures/login.csv';
+
+    // cy.readFile(filename).then((list) => {
+    //   const newData = `${list}${email},${password}\n`;
+    //   cy.log(JSON.stringify(newData));
+    //   // cy.log(JSON.stringify(list));
+    //   cy.writeFile(filename, newData);
+    // });
+
+    const newData = `${csvUsers}${email},${password}\n`;
+    console.log('newData', newData);
+    cy.log('newData=>', newData);
+    // fs.writeFileSync(filename, newData);
+    cy.task('writeFileCSV', newData);
 
     // //moving to main page
     // cy.contains('Continue').click();

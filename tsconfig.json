@@ -2,9 +2,12 @@
   "compilerOptions": {
     "target": "ES5",
     "lib": ["ES5", "DOM"],
-    "types": ["cypress", "node"]
-    // "esModuleInterop": true,
+    "types": ["cypress", "node"],
+    "esModuleInterop": true
     // "moduleResolution": "Node"
+    // "module": "commonjs",
+    // "moduleResolution": "node",
+    // "preserveValueImports": false
   },
   "include": ["**/*.ts"]
 }
