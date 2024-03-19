@@ -1,8 +1,9 @@
 import { fakerEN_IN as faker } from '@faker-js/faker';
 import * as fs from 'fs';
+import path from 'path';
 
 describe('template spec', () => {
-  it('passes', () => {
+  it('user is able to register', () => {
     // const username = faker.person.firstName();
     // const lastname = faker.person.lastName();
     // //email, telephone,password
@@ -52,36 +53,22 @@ describe('template spec', () => {
     // //verifying submission
     // cy.contains('Your Account Has Been Created!').should('have.class', 'page-title');
 
-    // cy.writeFile("cypress/fixtures/users.json",{})
-    // const filename = 'cypress/fixtures/login.json';
+    const fileName = 'cypress/fixtures/login.csv';
 
-    // cy.readFile(filename).then((list) => {
-    //   list.push({ email, password });
-    //   cy.log(JSON.stringify(list));
-    //   cy.writeFile(filename, list);
-    // });
+    cy.task('readFileCSV', fileName).then((data) => {
+      // console.log('readFileCSV=>data=>', data);
 
-    // cy.fixture('login.csv')
-    //   .then(neatCSv)
-    //   .then((data) => (loginData = data));
+      cy.log('readFileCSV=>data=>', JSON.stringify(data));
+    });
 
-    const csvUsers = Cypress.env('usersList');
-    cy.log('csvUsers=>', csvUsers);
-
-    const filename = 'cypress/fixtures/login.csv';
-
-    // cy.readFile(filename).then((list) => {
-    //   const newData = `${list}${email},${password}\n`;
-    //   cy.log(JSON.stringify(newData));
-    //   // cy.log(JSON.stringify(list));
-    //   cy.writeFile(filename, newData);
-    // });
-
-    const newData = `${csvUsers}${email},${password}\n`;
-    console.log('newData', newData);
-    cy.log('newData=>', newData);
+    // const newData = `${csvUsers}${email},${password}\n`;
+    // console.log('newData', newData);
+    // cy.log('newData=>', newData);
     // fs.writeFileSync(filename, newData);
-    cy.task('writeFileCSV', newData);
+    // cy.log('fileName=>', fileName);
+    // cy.task('writeFileCSV', { fileName: fileName, newData: newData });
+
+    // const fileName = 'cypress/fixtures/login.csv';
 
     // //moving to main page
     // cy.contains('Continue').click();
@@ -89,4 +76,29 @@ describe('template spec', () => {
     // //verifying logged in to login page
     // cy.contains('My Account').should('have.class', 'card-header');
   });
+
+  // it('user is able to login', () => {
+  //   //JSON
+  //   // cy.readFile(filename).then((list) => {
+  //   //   list.push({ email, password });
+  //   //   cy.log(JSON.stringify(list));
+  //   //   cy.writeFile(filename, list);
+  //   // });
+  //   //Csv using cypress read/write methods
+  //   // cy.readFile(filename).then((list) => {
+  //   //   const newData = `${list}${email},${password}\n`;
+  //   //   cy.log(JSON.stringify(newData));
+  //   //   // cy.log(JSON.stringify(list));
+  //   //   cy.writeFile(filename, newData);
+  //   // });
+  //   //csv using fs module
+  //   // cy.task('readFileforStorage', fileName).then((data) => {
+  //   //   cy.log('dotage', data);
+  //   //   // const newcreatedData = JSON.stringify(`${email},${password}\n`);
+  //   //   // cy.log(newcreatedData);
+  //   //   const newData = `${data}\n${email},${password}`;
+  //   //   // const newData = `${data},${newcreatedData}`;
+  //   //   cy.task('writeFileCSV', { fileName: fileName, data: newData });
+  //   // });
+  // });
 });
