@@ -9,7 +9,7 @@ import path from 'path';
 export default defineConfig({
   e2e: {
     // baseUrl: 'https://example.cypress.io',
-    baseUrl: 'https://ecommerce-playground.lambdatest.io',
+    baseUrl: 'https://ecommerce-playground.lambdatest.io/index.php',
     async setupNodeEvents(on, config) {
       // createe task to read from csv
       // const fileName = 'D:/FrondEnd/Testing/framework/cypress-e2e/cypress/fixtures/login.csv';
@@ -42,22 +42,6 @@ export default defineConfig({
           const newfileName = path.join(__dirname, fileName);
 
           fs.writeFileSync(newfileName, data);
-          return null;
-        },
-      });
-      // on('task', {
-      //   writeFileCSV({ fileName }) {
-      //     console.log('%s, %s', fileName);
-      //     // fs.writeFileSync(fileName, data);
-      //     return null;
-      //   },
-      // });
-
-      on('task', {
-        // deconstruct the individual properties
-        hello({ greeting, name }) {
-          console.log('%s, %s', greeting, name);
-
           return null;
         },
       });
