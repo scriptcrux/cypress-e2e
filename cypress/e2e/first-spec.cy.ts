@@ -4,11 +4,10 @@ import path from 'path';
 
 describe('template spec', () => {
   before('Navigation to portal', function () {
-    cy.visit('/');
-
-    cy.fixture('login.json').then(function (data) {
-      this.newData = data[0];
-    });
+    // cy.visit('/');
+    // cy.fixture('login.json').then(function (data) {
+    //   this.newData = data[0];
+    // });
   });
 
   /*   it.skip('user is able to register', () => {
@@ -93,24 +92,26 @@ describe('template spec', () => {
     // const fileNamecsv = 'cypress/fixtures/login.csv';
     // const fileNamejson = 'cypress/fixtures/login.json';
 
-    cy.log('newData=>', this.newData);
+    cy.login();
 
-    //opening account menu
-    cy.get('.dropdown-hoverable').find('.info').find('span').filter(':contains("My account")').trigger('mouseover');
+    // cy.log('newData=>', this.newData);
 
-    //opening registration form
-    cy.get('.mz-sub-menu-96').find('.info').find('span').filter(':contains("Login")').click();
+    // //opening account menu
+    // cy.get('.dropdown-hoverable').find('.info').find('span').filter(':contains("My account")').trigger('mouseover');
 
-    cy.contains('E-Mail Address').siblings('.form-control').type(this.newData.email);
-    cy.contains('Forgotten Password').prev('[placeholder="Password"]').type(this.newData.password);
+    // //opening registration form
+    // cy.get('.mz-sub-menu-96').find('.info').find('span').filter(':contains("Login")').click();
 
-    cy.get('form').children('input[type="submit"]').click();
+    // cy.contains('E-Mail Address').siblings('.form-control').type(this.newData.email);
+    // cy.contains('Forgotten Password').prev('[placeholder="Password"]').type(this.newData.password);
 
-    cy.url().should('include', '?route=account/account');
-    cy.url().should('eq', `${Cypress.config().baseUrl}?route=account/account`);
+    // cy.get('form').children('input[type="submit"]').click();
 
-    cy.contains('My Account');
-    cy.contains('My Orders');
+    // cy.url().should('include', '?route=account/account');
+    // cy.url().should('eq', `${Cypress.config().baseUrl}?route=account/account`);
+
+    // cy.contains('My Account');
+    // cy.contains('My Orders');
 
     // /* JSON */
     // cy.readFile(fileNamejson).then((list) => {
