@@ -4,10 +4,10 @@ import path from 'path';
 
 describe('template spec', () => {
   before('Navigation to portal', function () {
-    // cy.visit('/');
-    // cy.fixture('login.json').then(function (data) {
-    //   this.newData = data[0];
-    // });
+    cy.visit('/');
+    cy.fixture('login.json').then(function (data) {
+      this.newData = data[0];
+    });
   });
 
   /*   it.skip('user is able to register', () => {
@@ -92,6 +92,7 @@ describe('template spec', () => {
     // const fileNamecsv = 'cypress/fixtures/login.csv';
     // const fileNamejson = 'cypress/fixtures/login.json';
 
+    // cy.login(this.newData);
     cy.login();
 
     // cy.log('newData=>', this.newData);
