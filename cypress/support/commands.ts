@@ -53,4 +53,23 @@ export default function addCustomCommands() {
     //logged in
     cy.get('form').children('input[type="submit"]').click();
   });
+
+  Cypress.Commands.add('readJSONFile', function (fileName: string, newEntry: object) {
+    cy.readFile(fileName).then((list) => {
+      list.push(newEntry);
+      cy.log(JSON.stringify(list));
+      cy.writeFile(fileName, list);
+    });
+  });
+
+  type usercreds = { email: string; password: string };
+
+  Cypress.Commands.add('readCSVFile', function (fileName: string, newEntry: usercreds) {
+    const { email, password } = newEntry;
+    cy.task('readFileforStorage', fileName).then((data) => {
+      cy.log('dotage', data);
+      const newData = `${data}\n${email},${password}`;
+      cy.task('writeFileCSV', { fileName: fileName, data: newData });
+    });
+  });
 }

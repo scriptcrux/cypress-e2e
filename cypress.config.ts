@@ -10,6 +10,7 @@ export default defineConfig({
   e2e: {
     // baseUrl: 'https://example.cypress.io',
     baseUrl: 'https://ecommerce-playground.lambdatest.io/index.php',
+    pageLoadTimeout: 120000,
     async setupNodeEvents(on, config) {
       // createe task to read from csv
       // const fileName = 'D:/FrondEnd/Testing/framework/cypress-e2e/cypress/fixtures/login.csv';

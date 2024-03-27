@@ -1,8 +1,14 @@
 import { fakerEN_IN as faker } from '@faker-js/faker';
 import * as fs from 'fs';
 import path from 'path';
+import navigationPage from './pages/Accounts/NavigationPage';
+import registerPage from './pages/Accounts/RegisterPage';
+import successPage from './pages/Accounts/SuccessPage';
+import myAccountPage from './pages/Accounts/MyAccountPage';
 
 describe('template spec', () => {
+  const fileNamecsv = 'cypress/fixtures/login.csv';
+  const fileNamejson = 'cypress/fixtures/login.json';
   before('Navigation to portal', function () {
     cy.visit('/');
     cy.fixture('login.json').then(function (data) {
@@ -10,7 +16,7 @@ describe('template spec', () => {
     });
   });
 
-  /*   it.skip('user is able to register', () => {
+  it('user is able to register', () => {
     //generating data
     const username = faker.person.firstName();
     const lastname = faker.person.lastName();
@@ -18,124 +24,141 @@ describe('template spec', () => {
     const cellNumber = faker.phone.number();
     const password = faker.internet.password();
 
-    // cy.visit('/');
+    navigationPage.openMyAccountMenu();
+    navigationPage.openRegisterPage();
+    registerPage.completeRegistration(username, lastname, email, cellNumber, password, password, 'Yes');
 
-    //opening account menu
-    cy.get('.dropdown-hoverable').find('.info').find('span').filter(':contains("My account")').trigger('mouseover');
+    cy.readJSONFile(fileNamejson, { email, password });
 
-    //opening registration form
-    cy.get('.mz-sub-menu-96').find('.info').find('span').filter(':contains("Register")').click();
+    cy.readCSVFile(fileNamecsv, { email, password });
 
-    //filling registration form
-    // cy.get('.form-control').filter('[placeholder="First Name"]').type('user123').should('have.value', 'user123');
-    cy.get('.form-control').filter('[placeholder="First Name"]').type(username).should('have.value', username);
+    // //moving to main page
+    successPage.selectContinueBtn();
 
-    // cy.get('#input-lastname').type('last1234');
-    cy.get('#input-lastname').type(lastname);
-
-    // cy.get('[placeholder="E-Mail"]').type('user1123@mail.com');
-    cy.get('[placeholder="E-Mail"]').type(email);
-
-    // cy.get('[type="tel"]').type('917894561230');
-    cy.get('[type="tel"]').type(cellNumber);
-
-    // cy.get('#input-password').type('qwerty@12345');
-    cy.get('#input-password').type(password);
-
-    // cy.get('#input-confirm').type('qwerty@12345');
-    cy.get('#input-confirm').type(password);
-
-    cy.get('.custom-control-label').filter(":contains('No')").prev().check({ force: true }).should('be.checked');
-
-    cy.get('.custom-control-label')
-      .filter(':contains("I have read")')
-      .parent()
-      .children('#input-agree')
-      .check({ force: true })
-      .should('be.checked');
-
-    //submit details
-    cy.get('[value="Continue"]').click();
-
-    //verifying submission
-    cy.contains('Your Account Has Been Created!').should('have.class', 'page-title');
-
-    const fileNamecsv = 'cypress/fixtures/login.csv';
-    const fileNamejson = 'cypress/fixtures/login.json';
-
-    cy.readFile(fileNamejson).then((list) => {
-      list.push({ email, password });
-      cy.log(JSON.stringify(list));
-      cy.writeFile(fileNamejson, list);
-    });
-
-    cy.task('readFileforStorage', fileNamecsv).then((data) => {
-      cy.log('dotage', data);
-      const newData = `${data}\n${email},${password}`;
-      cy.task('writeFileCSV', { fileName: fileNamecsv, data: newData });
-    });
-
-    //moving to main page
-    cy.contains('Continue').click();
-
-    //verifying logged in to login page
-    cy.contains('My Account').should('have.class', 'card-header');
+    //verifying logged in to welcome page
+    myAccountPage.verifyPageHeader('card-header');
   });
- */
-  // before(function () {
-  //   cy.fixture('login.json').then(function (data) {
-  //     this.newData = data;
+
+  //   it('user is able to register', () => {
+  //   //generating data
+  //   const username = faker.person.firstName();
+  //   const lastname = faker.person.lastName();
+  //   const email = faker.internet.email();
+  //   const cellNumber = faker.phone.number();
+  //   const password = faker.internet.password();
+
+  //   // cy.visit('/');
+
+  //   //opening account menu
+  //   cy.get('.dropdown-hoverable').find('.info').find('span').filter(':contains("My account")').trigger('mouseover');
+
+  //   //opening registration form
+  //   cy.get('.mz-sub-menu-96').find('.info').find('span').filter(':contains("Register")').click();
+
+  //   //filling registration form
+  //   // cy.get('.form-control').filter('[placeholder="First Name"]').type('user123').should('have.value', 'user123');
+  //   cy.get('.form-control').filter('[placeholder="First Name"]').type(username).should('have.value', username);
+
+  //   // cy.get('#input-lastname').type('last1234');
+  //   cy.get('#input-lastname').type(lastname);
+
+  //   // cy.get('[placeholder="E-Mail"]').type('user1123@mail.com');
+  //   cy.get('[placeholder="E-Mail"]').type(email);
+
+  //   // cy.get('[type="tel"]').type('917894561230');
+  //   cy.get('[type="tel"]').type(cellNumber);
+
+  //   // cy.get('#input-password').type('qwerty@12345');
+  //   cy.get('#input-password').type(password);
+
+  //   // cy.get('#input-confirm').type('qwerty@12345');
+  //   cy.get('#input-confirm').type(password);
+
+  //   cy.get('.custom-control-label').filter(":contains('No')").prev().check({ force: true }).should('be.checked');
+
+  //   cy.get('.custom-control-label')
+  //     .filter(':contains("I have read")')
+  //     .parent()
+  //     .children('#input-agree')
+  //     .check({ force: true })
+  //     .should('be.checked');
+
+  //   //submit details
+  //   cy.get('[value="Continue"]').click();
+
+  //   //verifying submission
+  //   cy.contains('Your Account Has Been Created!').should('have.class', 'page-title');
+
+  //   const fileNamecsv = 'cypress/fixtures/login.csv';
+  //   const fileNamejson = 'cypress/fixtures/login.json';
+
+  //   cy.readFile(fileNamejson).then((list) => {
+  //     list.push({ email, password });
+  //     cy.log(JSON.stringify(list));
+  //     cy.writeFile(fileNamejson, list);
   //   });
+
+  //   cy.task('readFileforStorage', fileNamecsv).then((data) => {
+  //     cy.log('dotage', data);
+  //     const newData = `${data}\n${email},${password}`;
+  //     cy.task('writeFileCSV', { fileName: fileNamecsv, data: newData });
+  //   });
+
+  //   //moving to main page
+  //   cy.contains('Continue').click();
+
+  //   //verifying logged in to login page
+  //   cy.contains('My Account').should('have.class', 'card-header');
   // });
 
-  it('user is able to login', function () {
-    // const fileNamecsv = 'cypress/fixtures/login.csv';
-    // const fileNamejson = 'cypress/fixtures/login.json';
+  // it('user is able to login', function () {
+  //   // const fileNamecsv = 'cypress/fixtures/login.csv';
+  //   // const fileNamejson = 'cypress/fixtures/login.json';
 
-    // cy.login(this.newData);
-    cy.login();
+  //   // cy.login(this.newData);
+  //   cy.login();
 
-    // cy.log('newData=>', this.newData);
+  //   // cy.log('newData=>', this.newData);
 
-    // //opening account menu
-    // cy.get('.dropdown-hoverable').find('.info').find('span').filter(':contains("My account")').trigger('mouseover');
+  //   // //opening account menu
+  //   // cy.get('.dropdown-hoverable').find('.info').find('span').filter(':contains("My account")').trigger('mouseover');
 
-    // //opening registration form
-    // cy.get('.mz-sub-menu-96').find('.info').find('span').filter(':contains("Login")').click();
+  //   // //opening registration form
+  //   // cy.get('.mz-sub-menu-96').find('.info').find('span').filter(':contains("Login")').click();
 
-    // cy.contains('E-Mail Address').siblings('.form-control').type(this.newData.email);
-    // cy.contains('Forgotten Password').prev('[placeholder="Password"]').type(this.newData.password);
+  //   // cy.contains('E-Mail Address').siblings('.form-control').type(this.newData.email);
+  //   // cy.contains('Forgotten Password').prev('[placeholder="Password"]').type(this.newData.password);
 
-    // cy.get('form').children('input[type="submit"]').click();
+  //   // cy.get('form').children('input[type="submit"]').click();
 
-    // cy.url().should('include', '?route=account/account');
-    // cy.url().should('eq', `${Cypress.config().baseUrl}?route=account/account`);
+  //   // cy.url().should('include', '?route=account/account');
+  //   // cy.url().should('eq', `${Cypress.config().baseUrl}?route=account/account`);
 
-    // cy.contains('My Account');
-    // cy.contains('My Orders');
+  //   // cy.contains('My Account');
+  //   // cy.contains('My Orders');
 
-    // /* JSON */
-    // cy.readFile(fileNamejson).then((list) => {
+  //   // /* JSON */
+  //   // cy.readFile(fileNamejson).then((list) => {
 
-    //   cy.log(JSON.stringify(list));
-    //   cy.writeFile(fileNamejson, list);
-    // });
-    // /* Csv using cypress read/write methods */
-    // cy.readFile(fileNamecsv).then((list) => {
-    //   const newData = `${list}${email},${password}\n`;
-    //   cy.log(JSON.stringify(newData));
-    //   // cy.log(JSON.stringify(list));
-    //   cy.writeFile(fileNamecsv, newData);
-    // });
+  //   //   cy.log(JSON.stringify(list));
+  //   //   cy.writeFile(fileNamejson, list);
+  //   // });
+  //   // /* Csv using cypress read/write methods */
+  //   // cy.readFile(fileNamecsv).then((list) => {
+  //   //   const newData = `${list}${email},${password}\n`;
+  //   //   cy.log(JSON.stringify(newData));
+  //   //   // cy.log(JSON.stringify(list));
+  //   //   cy.writeFile(fileNamecsv, newData);
+  //   // });
 
-    // /* csv using fs module */
-    // cy.task('readFileforStorage', fileNamecsv).then((data) => {
-    //   cy.log('dotage', data);
-    //   // const newcreatedData = JSON.stringify(`${email},${password}\n`);
-    //   // cy.log(newcreatedData);
-    //   const newData = `${data}\n${email},${password}`;
-    //   // const newData = `${data},${newcreatedData}`;
-    //   cy.task('writeFileCSV', { fileName: fileNamecsv, data: newData });
-    // });
-  });
+  //   // /* csv using fs module */
+  //   // cy.task('readFileforStorage', fileNamecsv).then((data) => {
+  //   //   cy.log('dotage', data);
+  //   //   // const newcreatedData = JSON.stringify(`${email},${password}\n`);
+  //   //   // cy.log(newcreatedData);
+  //   //   const newData = `${data}\n${email},${password}`;
+  //   //   // const newData = `${data},${newcreatedData}`;
+  //   //   cy.task('writeFileCSV', { fileName: fileNamecsv, data: newData });
+  //   // });
+  // });
 });
