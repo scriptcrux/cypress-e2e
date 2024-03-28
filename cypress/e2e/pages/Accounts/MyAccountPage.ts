@@ -1,9 +1,18 @@
 class MyAccountPage {
-  get pageHeader() {
+  get pageAccountHeader() {
     return cy.contains('My Account');
   }
-  verifyPageHeader(cls: string) {
-    this.pageHeader.should('have.class', cls);
+
+  get pageOrderHeader() {
+    return cy.contains('My Account');
+  }
+
+  verifyAccountHeader(cls: string) {
+    this.pageAccountHeader.should('have.class', cls);
+  }
+
+  verifyOrderHeader(cls: string) {
+    this.pageOrderHeader.should('have.class', cls);
   }
 }
 
