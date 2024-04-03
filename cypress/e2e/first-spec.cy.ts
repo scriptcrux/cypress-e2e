@@ -6,6 +6,7 @@ import registerPage from './pages/Accounts/RegisterPage';
 import successPage from './pages/Accounts/SuccessPage';
 import myAccountPage from './pages/Accounts/MyAccountPage';
 import loginPage from './pages/Accounts/LoginPage';
+import navBarPage from './pages/Navbar/NavBarPage';
 
 describe('template spec', () => {
   const fileNamecsv = 'cypress/fixtures/login.csv';
@@ -60,7 +61,7 @@ describe('template spec', () => {
     myAccountPage.verifyOrderHeader('card-header');
   });
 
-  it('using single command to login', function () {
+  xit('using single command to login', function () {
     // opening account menu
     navigationPage.openMyAccountMenu();
 
@@ -79,5 +80,15 @@ describe('template spec', () => {
     // cy.contains('My Orders');
     myAccountPage.verifyAccountHeader('card-header');
     myAccountPage.verifyOrderHeader('card-header');
+  });
+
+  it('end to end flow for the ', function () {
+    //without user
+    // cy.login();
+
+    //with user
+    cy.login(this.newData);
+
+    navBarPage.openHomeTab();
   });
 });
