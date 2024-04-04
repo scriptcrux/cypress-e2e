@@ -7,6 +7,8 @@ import successPage from './pages/Accounts/SuccessPage';
 import myAccountPage from './pages/Accounts/MyAccountPage';
 import loginPage from './pages/Accounts/LoginPage';
 import navBarPage from './pages/Navbar/NavBarPage';
+import topCategoriesPage from './pages/Categories/TopCategoriesPage';
+import phonesAndPDAPage from './pages/Categories/PhonesAndPDAPage';
 
 describe('template spec', () => {
   const fileNamecsv = 'cypress/fixtures/login.csv';
@@ -90,5 +92,7 @@ describe('template spec', () => {
     cy.login(this.newData);
 
     navBarPage.openHomeTab();
+    topCategoriesPage.openPhoneCategory();
+    phonesAndPDAPage.verifyPageHeader('PDAs', 'PhonesAndPDAs');
   });
 });
