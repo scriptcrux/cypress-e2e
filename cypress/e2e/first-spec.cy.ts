@@ -89,10 +89,20 @@ describe('template spec', () => {
     // cy.login();
 
     //with user
-    cy.login(this.newData);
+    // cy.login(this.newData);
 
+    //navigate to home page
     navBarPage.openHomeTab();
+
+    //open category
     topCategoriesPage.openPhoneCategory();
-    phonesAndPDAPage.verifyPageHeader('PDAs', 'PhonesAndPDAs');
+
+    //verify header
+    phonesAndPDAPage.verifyPageHeader('PDAs', 'Phones & PDAs');
+
+    //select product
+    phonesAndPDAPage.selectProduct('HTC Touch HD');
+
+    phonesAndPDAPage.verifyBreadCrumb('HTC Touch HD');
   });
 });

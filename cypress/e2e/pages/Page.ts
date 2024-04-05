@@ -2,6 +2,9 @@ class Page {
   private get pageURL() {
     return cy.url();
   }
+  private get breadCrumbs() {
+    return cy.get('.content-breadcrumbs').find('.breadcrumb').find('.active');
+  }
 
   verifyPageURL(partialPath: string) {
     this.pageURL.should('include', partialPath);
@@ -9,6 +12,9 @@ class Page {
   }
   verifyPageHeader(locator: string, expectedText: string) {
     cy.contains(locator).should('have.text', expectedText);
+  }
+  verifyBreadCrumb(breadcrumbName: string) {
+    this.breadCrumbs.should('have.text', breadcrumbName);
   }
 }
 
