@@ -58,6 +58,27 @@ export default function addCustomCommands() {
     // cy.get('form').children('input[type="submit"]').click();
   });
 
+  Cypress.Commands.add('loginWithSession', function (userDetails?) {
+    let email: string, password: string;
+    if (userDetails) {
+      email = userDetails.email;
+      password = userDetails.password;
+    } else {
+      cy.fixture('login.json').then(function (data) {
+        this.newData = data[0];
+      });
+      email = this.newData.email;
+      password = this.newData.password;
+    }
+    cy.session(userDetails ? [userDetails] : 'login', () => {
+      cy.visit('/');
+      navigationPage.openMyAccountMenu();
+      navigationPage.openLoginPage();
+
+      loginPage.login(email, password);
+    });
+  });
+
   Cypress.Commands.add('readJSONFile', function (fileName: string, newEntry: object) {
     cy.readFile(fileName).then((list) => {
       list.push(newEntry);

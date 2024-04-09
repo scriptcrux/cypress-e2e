@@ -14,10 +14,15 @@ describe('template spec', () => {
   const fileNamecsv = 'cypress/fixtures/login.csv';
   const fileNamejson = 'cypress/fixtures/login.json';
   before('Navigation to portal', function () {
-    cy.visit('/');
+    // cy.visit('/');
     cy.fixture('login.json').then(function (data) {
       this.newData = data[1];
     });
+  });
+
+  beforeEach(() => {
+    cy.loginWithSession();
+    cy.visit('/');
   });
 
   xit('user is able to register', () => {
@@ -82,6 +87,24 @@ describe('template spec', () => {
     // cy.contains('My Orders');
     myAccountPage.verifyAccountHeader('card-header');
     myAccountPage.verifyOrderHeader('card-header');
+  });
+
+  it('login flow using  ', function () {
+    // cy.visit('/');
+    // //without user
+    // cy.loginWithSession();
+
+    //with user
+    // cy.login(this.newData);
+    navBarPage.openHomeTab();
+
+    //open category
+    topCategoriesPage.openPhoneCategory();
+
+    //verify header
+    phonesAndPDAPage.verifyPageHeader('PDAs', 'Phones & PDAs');
+
+    //navigate to home page
   });
 
   it('end to end flow for the ', function () {

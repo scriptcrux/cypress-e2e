@@ -7,6 +7,7 @@ declare namespace Cypress {
 
   interface Chainable<Subject = any> {
     login(userDetail?: UserDetails): Chainable<any>;
+    loginWithSession(userDetail?: UserDetails): Chainable<any>;
     readJSONFile(fileName: string, newEntry: object): Chainable<any>;
     readCSVFile(fileName: string, newEntry: usercreds): Chainable<any>;
   }
