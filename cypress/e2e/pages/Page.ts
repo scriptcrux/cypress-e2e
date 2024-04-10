@@ -3,7 +3,7 @@ class Page {
     return cy.url();
   }
   private get breadCrumbs() {
-    return cy.get('.content-breadcrumbs').find('.breadcrumb').find('.active');
+    return cy.get('.breadcrumb').find('.active');
   }
 
   verifyPageURL(partialPath: string) {

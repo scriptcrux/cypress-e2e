@@ -1,12 +1,21 @@
 import Page from '../Page';
 
 class ProductPage extends Page {
-  get homeTab() {
-    return cy.contains('Home');
+  get productInput() {
+    return cy.get('#entry_216841').find('[aria-label="Decrease quantity"]').parent().next();
   }
 
-  openHomeTab() {
-    this.homeTab.click();
+  get buyNowbtn() {
+    return cy.contains('Buy now');
+  }
+
+  setProductItem(input: string) {
+    this.productInput.clear();
+    this.productInput.type(input);
+  }
+
+  clickBuyNowBtn() {
+    this.buyNowbtn.click();
   }
 }
 

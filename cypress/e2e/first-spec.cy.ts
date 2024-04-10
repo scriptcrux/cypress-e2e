@@ -9,21 +9,24 @@ import loginPage from './pages/Accounts/LoginPage';
 import navBarPage from './pages/Navbar/NavBarPage';
 import topCategoriesPage from './pages/Categories/TopCategoriesPage';
 import phonesAndPDAPage from './pages/Categories/PhonesAndPDAPage';
+import productPage from './pages/Products/ProductPage';
+import CheckoutPage from './pages/Checkout/CheckoutPage';
 
 describe('template spec', () => {
   const fileNamecsv = 'cypress/fixtures/login.csv';
   const fileNamejson = 'cypress/fixtures/login.json';
   before('Navigation to portal', function () {
-    // cy.visit('/');
+    cy.visit('/');
     cy.fixture('login.json').then(function (data) {
       this.newData = data[1];
     });
   });
 
-  beforeEach(() => {
-    cy.loginWithSession();
-    cy.visit('/');
-  });
+  // beforeEach(function () {
+  //for seesion use
+  //   cy.loginWithSession();
+  //   cy.visit('/');
+  // });
 
   xit('user is able to register', () => {
     //generating data
@@ -89,7 +92,9 @@ describe('template spec', () => {
     myAccountPage.verifyOrderHeader('card-header');
   });
 
-  it('login flow using  ', function () {
+  xit('login flow using cy session ', function () {
+    /* now we can navigate to any page using session we just need to use cy.visit("/url to navigate to") */
+
     // cy.visit('/');
     // //without user
     // cy.loginWithSession();
@@ -107,7 +112,7 @@ describe('template spec', () => {
     //navigate to home page
   });
 
-  it('end to end flow for the ', function () {
+  it('end to end flow for the placing the order ', function () {
     //without user
     // cy.login();
 
@@ -126,6 +131,13 @@ describe('template spec', () => {
     //select product
     phonesAndPDAPage.selectProduct('HTC Touch HD');
 
-    phonesAndPDAPage.verifyBreadCrumb('HTC Touch HD');
+    productPage.verifyBreadCrumb('HTC Touch HD');
+
+    productPage.setProductItem('2');
+    productPage.setProductItem('1');
+
+    productPage.clickBuyNowBtn();
+
+    CheckoutPage.verifyBreadCrumb('Checkout');
   });
 });

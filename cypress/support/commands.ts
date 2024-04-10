@@ -65,18 +65,28 @@ export default function addCustomCommands() {
       password = userDetails.password;
     } else {
       cy.fixture('login.json').then(function (data) {
-        this.newData = data[0];
+        cy.log('data', data);
+        // this.newData = data[0];
+        // cy.log('this.newData', this.newData);
+        // email = this.newData.email;
+        // password = this.newData.password;
+        cy.log('this.newData', this.newData);
+        email = data.email;
+        password = data.password;
       });
-      email = this.newData.email;
-      password = this.newData.password;
     }
-    cy.session(userDetails ? [userDetails] : 'login', () => {
-      cy.visit('/');
-      navigationPage.openMyAccountMenu();
-      navigationPage.openLoginPage();
 
-      loginPage.login(email, password);
-    });
+    cy.session(
+      userDetails ? [userDetails] : 'login',
+      () => {
+        cy.visit('/');
+        navigationPage.openMyAccountMenu();
+        navigationPage.openLoginPage();
+
+        loginPage.login(email, password);
+      },
+      { cacheAcrossSpecs: true }
+    );
   });
 
   Cypress.Commands.add('readJSONFile', function (fileName: string, newEntry: object) {
