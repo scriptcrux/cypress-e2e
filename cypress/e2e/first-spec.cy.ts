@@ -117,7 +117,7 @@ describe('template spec', () => {
     // cy.login();
 
     //with user
-    // cy.login(this.newData);
+    cy.login(this.newData);
 
     //navigate to home page
     navBarPage.openHomeTab();

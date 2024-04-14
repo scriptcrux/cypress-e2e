@@ -1,6 +1,8 @@
+import Page from '../Page';
+
 type subscriptionButton = 'Yes' | 'No';
 
-class RegisterPage {
+class RegisterPage extends Page {
   get openMyAccountMenu() {
     return cy.get('.dropdown-hoverable').find('.info').find('span').filter(':contains("My account")');
   }
