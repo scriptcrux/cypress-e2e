@@ -2,6 +2,9 @@ import Page from '../Page';
 type subscriptionButton = 'Yes' | 'No';
 
 class CheckoutPage extends Page {
+  get newAddressChkBox() {
+    return cy.get('#input-payment-address-new');
+  }
   get firstName() {
     return cy.get('#input-payment-firstname');
   }
@@ -30,15 +33,31 @@ class CheckoutPage extends Page {
     return cy.get('#input-payment-postcode');
   }
 
-  get Country() {}
+  get Country() {
+    return cy.get('[name="country_id"]');
+  }
 
-  get State() {}
+  get RegionOrState() {
+    return cy.get('[name="zone_id"]');
+  }
 
-  get ReuseAddressCheckbox() {}
+  get ReuseAddressCheckbox() {
+    return cy.get('.custom-control-label').parent().find('.custom-control-input');
+  }
 
-  get AddCommentBox() {}
+  get AddCommentBox() {
+    return cy.get('form-control');
+  }
 
-  get ContinueBtn() {}
+  get termsAndConditionsCheck() {
+    return cy.get('.custom-control-label').parent().get('#input-agree');
+  }
+
+  get ContinueBtn() {
+    return cy.get('button-save');
+  }
+
+  enterBillingDetails() {}
 
   //   enterPersonalDetails(firstName: string, lastName: string, email: string, contactNumber: string) {
   //     this.firstName.type(firstName);
