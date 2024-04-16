@@ -5,6 +5,10 @@ class CheckoutPage extends Page {
   get newAddressChkBox() {
     return cy.get('#input-payment-address-new');
   }
+  get existingAddressBlock() {
+    return cy.get('#payment-existing');
+  }
+
   get firstName() {
     return cy.get('#input-payment-firstname');
   }
@@ -57,7 +61,9 @@ class CheckoutPage extends Page {
     return cy.get('button-save');
   }
 
-  enterBillingDetails() {}
+  enterBillingDetails() {
+    //here we need to select body or element which is always there and then needs to apply then block
+  }
 
   //   enterPersonalDetails(firstName: string, lastName: string, email: string, contactNumber: string) {
   //     this.firstName.type(firstName);
