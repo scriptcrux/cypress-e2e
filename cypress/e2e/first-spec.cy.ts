@@ -10,7 +10,8 @@ import navBarPage from './pages/Navbar/NavBarPage';
 import topCategoriesPage from './pages/Categories/TopCategoriesPage';
 import phonesAndPDAPage from './pages/Categories/PhonesAndPDAPage';
 import productPage from './pages/Products/ProductPage';
-import CheckoutPage from './pages/Checkout/CheckoutPage';
+// import CheckoutPage from './pages/Checkout/CheckoutPage';
+import CheckoutPage from '@checkoutPages/CheckoutPage';
 
 describe('template spec', () => {
   const fileNamecsv = 'cypress/fixtures/login.csv';
