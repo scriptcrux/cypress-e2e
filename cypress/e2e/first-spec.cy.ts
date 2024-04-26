@@ -1,15 +1,15 @@
 import { fakerEN_IN as faker } from '@faker-js/faker';
 import * as fs from 'fs';
 import path from 'path';
-import navigationPage from './pages/Accounts/NavigationPage';
-import registerPage from './pages/Accounts/RegisterPage';
-import successPage from './pages/Accounts/SuccessPage';
-import myAccountPage from './pages/Accounts/MyAccountPage';
-import loginPage from './pages/Accounts/LoginPage';
-import navBarPage from './pages/Navbar/NavBarPage';
-import topCategoriesPage from './pages/Categories/TopCategoriesPage';
-import phonesAndPDAPage from './pages/Categories/PhonesAndPDAPage';
-import productPage from './pages/Products/ProductPage';
+import navigationPage from '@accountPages/NavigationPage';
+import registerPage from '@accountPages/RegisterPage';
+import successPage from '@accountPages/SuccessPage';
+import myAccountPage from '@accountPages/MyAccountPage';
+import loginPage from '@accountPages/LoginPage';
+import navBarPage from '@navbarPages/NavBarPage';
+import topCategoriesPage from '@categoriesPages/TopCategoriesPage';
+import phonesAndPDAPage from '@categoriesPages/PhonesAndPDAPage';
+import productPage from '@productPages/ProductPage';
 // import CheckoutPage from './pages/Checkout/CheckoutPage';
 import CheckoutPage from '@checkoutPages/CheckoutPage';
 

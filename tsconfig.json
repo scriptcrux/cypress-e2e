@@ -9,9 +9,14 @@
     // "module": "commonjs",
     // "moduleResolution": "node",
     // "preserveValueImports": false
+    "baseUrl": "cypress/e2e",
+    //cypress\e2e\pages\Accounts\LoginPage.ts
     "paths": {
       "@accountPages/*": ["./pages/Accounts/*"],
-      "@checkoutPages/*": ["./pages/Checkout/*"]
+      "@checkoutPages/*": ["./pages/Checkout/*"],
+      "@categoriesPages/*": ["./pages/Categories/*"],
+      "@navbarPages/*": ["./pages/Navbar/*"],
+      "@productPages/*": ["./pages/Products/*"]
     }
   },
   "include": ["**/*.ts"]
