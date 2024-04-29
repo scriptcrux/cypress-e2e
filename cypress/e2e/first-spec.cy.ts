@@ -140,5 +140,7 @@ describe('template spec', () => {
     productPage.clickBuyNowBtn();
 
     CheckoutPage.verifyBreadCrumb('Checkout');
+
+    CheckoutPage.enterBillingDetails();
   });
 });

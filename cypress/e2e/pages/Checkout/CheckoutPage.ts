@@ -9,6 +9,10 @@ class CheckoutPage extends Page {
     return cy.get('#payment-existing');
   }
 
+  get existingAddressDropdown() {
+    return this.existingAddressBlock.find('address_id');
+  }
+
   get firstName() {
     return cy.get('#input-payment-firstname');
   }
@@ -61,9 +65,37 @@ class CheckoutPage extends Page {
     return cy.get('button-save');
   }
 
-  enterBillingDetails() {
+  enterBillingDetails(useNewAddress = false, options = 0) {
     //here we need to select body or element which is always there and then needs to apply then block
+    cy.get('body').then(($body) => {
+      if ($body.find('#payment-existing').length) {
+        if (useNewAddress) this.newAddressChkBox.click();
+        else {
+          this.existingAddressDropdown.select(options);
+        }
+      }
+    });
+
+   this.AddNewAddress();
+    
   }
+
+    enterCustomerDetails(firstName: string, lastName: string, email: string, addressOne: string) {
+    this.firstName.type(firstName);
+    this.LastName.type(lastName);
+    this.company.type(email);
+    this.contactNum.type(addressOne);
+  }
+
+    AddNewAddress(
+    firstName: string,
+    lastName: string,
+    email: string,
+    contactNumber: string,
+  ) {
+    this.enterCustomerDetails(firstName, lastName, email, contactNumber);
+  }
+}
 
   //   enterPersonalDetails(firstName: string, lastName: string, email: string, contactNumber: string) {
   //     this.firstName.type(firstName);
