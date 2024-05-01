@@ -1,6 +1,18 @@
 import Page from '../Page';
 type subscriptionButton = 'Yes' | 'No';
 
+interface AdressDetails {
+  firsName: string;
+  lastName: string;
+  company?: string;
+  address1: string;
+  address2?: string;
+  city: string;
+  postCode: string;
+  country: string;
+  region: string;
+}
+
 class CheckoutPage extends Page {
   get newAddressChkBox() {
     return cy.get('#input-payment-address-new');
@@ -65,8 +77,21 @@ class CheckoutPage extends Page {
     return cy.get('button-save');
   }
 
-  enterBillingDetails(useNewAddress = false, options = 0) {
-    //here we need to select body or element which is always there and then needs to apply then block
+  enterCustomerDetails(firstName: string, lastName: string, company: string) {
+    this.firstName.type(firstName);
+    this.LastName.type(lastName);
+    this.company.type(company);
+  }
+
+  AddNewAddress(address1: string, city: string, postCode: string, country: string, region: string) {
+    this.address.type(address1);
+    this.City.type(city);
+    this.PostCode.type(postCode);
+    this.Country.select(country);
+    this.RegionOrState.select(region);
+  }
+
+  selectBillingDetails(useNewAddress = false, options = 0) {
     cy.get('body').then(($body) => {
       if ($body.find('#payment-existing').length) {
         if (useNewAddress) this.newAddressChkBox.click();
@@ -75,59 +100,13 @@ class CheckoutPage extends Page {
         }
       }
     });
-
-   this.AddNewAddress();
-    
   }
 
-    enterCustomerDetails(firstName: string, lastName: string, email: string, addressOne: string) {
-    this.firstName.type(firstName);
-    this.LastName.type(lastName);
-    this.company.type(email);
-    this.contactNum.type(addressOne);
+  enterBillingDetails(addressDetails: AdressDetails) {
+    const { firsName, lastName, company, address1, city, postCode, country, region } = addressDetails;
+    this.enterCustomerDetails(firsName, lastName, company);
+    this.AddNewAddress(address1, city, postCode, country, region);
   }
-
-    AddNewAddress(
-    firstName: string,
-    lastName: string,
-    email: string,
-    contactNumber: string,
-  ) {
-    this.enterCustomerDetails(firstName, lastName, email, contactNumber);
-  }
-}
-
-  //   enterPersonalDetails(firstName: string, lastName: string, email: string, contactNumber: string) {
-  //     this.firstName.type(firstName);
-  //     this.LastName.type(lastName);
-  //     this.emailField.type(email);
-  //     this.contactNum.type(contactNumber);
-  //   }
-  //   enterPassword(pass: string, confirmPass: string) {
-  //     this.passwordField.type(pass);
-  //     this.passwordConfirm.type(confirmPass);
-  //   }
-
-  //   enterNewsletter(option: subscriptionButton) {
-  //     const subscriptionOption = option === 'Yes' ? '1' : '0';
-  //     this.subscriptionButton.check(subscriptionOption, { force: true });
-  //     this.privacyPolicyChkBox.click({ force: true });
-  //     this.submitRegistrationBtn.click();
-  //   }
-
-  //   completeRegistration(
-  //     firstName: string,
-  //     lastName: string,
-  //     email: string,
-  //     contactNumber: string,
-  //     pass: string,
-  //     confirmPass: string,
-  //     option: subscriptionButton
-  //   ) {
-  //     this.enterPersonalDetails(firstName, lastName, email, contactNumber);
-  //     this.enterPassword(pass, confirmPass);
-  //     this.enterNewsletter(option);
-  //   }
 }
 
 export default new CheckoutPage();

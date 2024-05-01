@@ -141,6 +141,30 @@ describe('template spec', () => {
 
     CheckoutPage.verifyBreadCrumb('Checkout');
 
-    CheckoutPage.enterBillingDetails();
+    CheckoutPage.selectBillingDetails();
+
+    const username = faker.person.firstName();
+    const lastname = faker.person.lastName();
+    const company = faker.company.name();
+    const address = faker.location.streetAddress();
+    const city = faker.location.city();
+    const postCode = faker.location.zipCode();
+    const country = faker.location.country();
+    const region = faker.location.state();
+
+    // Use the generated address object to get a fake state
+
+    const request = {
+      firsName: username,
+      lastName: lastname,
+      company: company,
+      address1: address,
+      city: city,
+      postCode: postCode,
+      country: country,
+      region: region,
+    };
+    cy.log('request', request);
+    CheckoutPage.enterBillingDetails(request);
   });
 });
