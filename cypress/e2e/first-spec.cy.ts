@@ -12,6 +12,7 @@ import phonesAndPDAPage from '@categoriesPages/PhonesAndPDAPage';
 import productPage from '@productPages/ProductPage';
 // import CheckoutPage from './pages/Checkout/CheckoutPage';
 import CheckoutPage from '@checkoutPages/CheckoutPage';
+import confirmOrderPage from './pages/Checkout/ConfirmOrderPage';
 
 describe('template spec', () => {
   const fileNamecsv = 'cypress/fixtures/login.csv';
@@ -141,7 +142,7 @@ describe('template spec', () => {
 
     CheckoutPage.verifyBreadCrumb('Checkout');
 
-    CheckoutPage.selectBillingDetails();
+    CheckoutPage.selectBillingDetails(true);
 
     const username = faker.person.firstName();
     const lastname = faker.person.lastName();
@@ -161,10 +162,20 @@ describe('template spec', () => {
       address1: address,
       city: city,
       postCode: postCode,
-      country: country,
-      region: region,
+      // country: country,
+      // region: region,
+      country: 'India',
+      region: 'Himachal Pradesh',
     };
     cy.log('request', request);
     CheckoutPage.enterBillingDetails(request);
+    CheckoutPage.completeCheckout('This is a new product');
+
+    //confirm order
+
+    //verify header
+    confirmOrderPage.verifyPageHeader('Confirm', 'verifyPageHeader');
+
+    confirmOrderPage.confirmOrder();
   });
 });

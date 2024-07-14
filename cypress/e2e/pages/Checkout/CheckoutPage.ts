@@ -22,7 +22,7 @@ class CheckoutPage extends Page {
   }
 
   get existingAddressDropdown() {
-    return this.existingAddressBlock.find('address_id');
+    return this.existingAddressBlock.find("[name='address_id']");
   }
 
   get firstName() {
@@ -38,7 +38,7 @@ class CheckoutPage extends Page {
   }
 
   get address() {
-    return cy.get('input-payment-address-1');
+    return cy.get('#input-payment-address-1');
   }
 
   get contactNum() {
@@ -66,7 +66,7 @@ class CheckoutPage extends Page {
   }
 
   get AddCommentBox() {
-    return cy.get('form-control');
+    return cy.get('#input-comment');
   }
 
   get termsAndConditionsCheck() {
@@ -74,7 +74,7 @@ class CheckoutPage extends Page {
   }
 
   get ContinueBtn() {
-    return cy.get('button-save');
+    return cy.get('#button-save');
   }
 
   enterCustomerDetails(firstName: string, lastName: string, company: string) {
@@ -106,6 +106,12 @@ class CheckoutPage extends Page {
     const { firsName, lastName, company, address1, city, postCode, country, region } = addressDetails;
     this.enterCustomerDetails(firsName, lastName, company);
     this.AddNewAddress(address1, city, postCode, country, region);
+  }
+
+  completeCheckout(comment: string) {
+    this.AddCommentBox.type(comment);
+    this.termsAndConditionsCheck.click({ force: true });
+    this.ContinueBtn.click();
   }
 }
 
