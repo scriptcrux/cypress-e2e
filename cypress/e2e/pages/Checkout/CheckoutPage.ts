@@ -15,7 +15,8 @@ interface AdressDetails {
 
 class CheckoutPage extends Page {
   get newAddressChkBox() {
-    return cy.get('#input-payment-address-new');
+    // return cy.get('#input-payment-address-new');
+    return cy.get("[for='input-payment-address-new']");
   }
   get existingAddressBlock() {
     return cy.get('#payment-existing');

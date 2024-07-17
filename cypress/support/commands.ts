@@ -37,10 +37,11 @@ export default function addCustomCommands() {
       cy.fixture('login.json').then(function (data) {
         this.newData = data[0];
       });
+      cy.log('data- this.newData--', this.newData);
       email = this.newData.email;
       password = this.newData.password;
     }
-    // cy.log('details-outside', email, password);
+    cy.log('details-outside', email, password);
     //opening account menu
     // cy.get('.dropdown-hoverable').find('.info').find('span').filter(':contains("My account")').trigger('mouseover');
     navigationPage.openMyAccountMenu();
@@ -65,17 +66,19 @@ export default function addCustomCommands() {
       password = userDetails.password;
     } else {
       cy.fixture('login.json').then(function (data) {
-        cy.log('data', data);
-        // this.newData = data[0];
+        cy.log('data-login', data);
+        this.newData = data[0];
         // cy.log('this.newData', this.newData);
         // email = this.newData.email;
         // password = this.newData.password;
-        cy.log('this.newData', this.newData);
-        email = data.email;
-        password = data.password;
+        // cy.log('this.newData', this.newData);
+        // cy.log('data', data);
+        email = data[0].email;
+        password = data[0].password;
+        cy.log('before-creds', email, password);
       });
     }
-
+    cy.log('out-creds', email, password);
     cy.session(
       userDetails ? [userDetails] : 'login',
       () => {

@@ -3,7 +3,6 @@ import * as fs from 'fs';
 import path from 'path';
 import navigationPage from '@accountPages/NavigationPage';
 import registerPage from '@accountPages/RegisterPage';
-import successPage from '@accountPages/SuccessPage';
 import myAccountPage from '@accountPages/MyAccountPage';
 import loginPage from '@accountPages/LoginPage';
 import navBarPage from '@navbarPages/NavBarPage';
@@ -13,16 +12,18 @@ import productPage from '@productPages/ProductPage';
 // import CheckoutPage from './pages/Checkout/CheckoutPage';
 import CheckoutPage from '@checkoutPages/CheckoutPage';
 import confirmOrderPage from './pages/Checkout/ConfirmOrderPage';
+import successOrderPage from './pages/Checkout/successOrderPage';
+import SuccessAccountPage from './pages/Accounts/SuccessAccountPage';
 
 describe('template spec', () => {
   const fileNamecsv = 'cypress/fixtures/login.csv';
   const fileNamejson = 'cypress/fixtures/login.json';
-  before('Navigation to portal', function () {
-    cy.visit('/');
-    cy.fixture('login.json').then(function (data) {
-      this.newData = data[1];
-    });
-  });
+  // before('Navigation to portal', function () {
+  //   cy.visit('/');
+  //   cy.fixture('login.json').then(function (data) {
+  //     this.newData = data[1];
+  //   });
+  // });
 
   // beforeEach(function () {
   //for seesion use
@@ -47,7 +48,7 @@ describe('template spec', () => {
     cy.readCSVFile(fileNamecsv, { email, password });
 
     // //moving to main page
-    successPage.selectContinueBtn();
+    SuccessAccountPage.selectContinueBtn();
 
     //verifying logged in to welcome page
     myAccountPage.verifyAccountHeader('card-header');
@@ -94,15 +95,16 @@ describe('template spec', () => {
     myAccountPage.verifyOrderHeader('card-header');
   });
 
-  xit('login flow using cy session ', function () {
+  it('login flow using cy session ', function () {
     /* now we can navigate to any page using session we just need to use cy.visit("/url to navigate to") */
 
-    // cy.visit('/');
     // //without user
-    // cy.loginWithSession();
+    cy.loginWithSession();
+    cy.visit('/');
 
     //with user
-    // cy.login(this.newData);
+    // cy.login(this.newData)
+
     navBarPage.openHomeTab();
 
     //open category
@@ -114,7 +116,7 @@ describe('template spec', () => {
     //navigate to home page
   });
 
-  it('end to end flow for the placing the order ', function () {
+  xit('end to end flow for the placing the order ', function () {
     //without user
     // cy.login();
 
@@ -174,8 +176,9 @@ describe('template spec', () => {
     //confirm order
 
     //verify header
-    confirmOrderPage.verifyPageHeader('Confirm', 'verifyPageHeader');
+    confirmOrderPage.verifyPageHeader('Confirm', 'Confirm Order');
 
     confirmOrderPage.confirmOrder();
+    successOrderPage.verifyPageHeader('Your order', ' Your order has been placed!');
   });
 });
