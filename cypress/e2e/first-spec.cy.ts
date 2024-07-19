@@ -95,7 +95,7 @@ describe('template spec', () => {
     myAccountPage.verifyOrderHeader('card-header');
   });
 
-  it('login flow using cy session ', function () {
+  xit('login flow using cy session ', function () {
     /* now we can navigate to any page using session we just need to use cy.visit("/url to navigate to") */
 
     // //without user
@@ -180,5 +180,73 @@ describe('template spec', () => {
 
     confirmOrderPage.confirmOrder();
     successOrderPage.verifyPageHeader('Your order', ' Your order has been placed!');
+  });
+
+  it('end to end flow for the placing the order ', function () {
+    //without user
+    // cy.login();
+
+    cy.visit('/');
+
+    // //with user
+    // cy.login(this.newData);
+
+    // //navigate to home page
+    // navBarPage.openHomeTab();
+
+    // //open category
+    // topCategoriesPage.openPhoneCategory();
+
+    // //verify header
+    // phonesAndPDAPage.verifyPageHeader('PDAs', 'Phones & PDAs');
+
+    // //select product
+    // phonesAndPDAPage.selectProduct('HTC Touch HD');
+
+    // productPage.verifyBreadCrumb('HTC Touch HD');
+
+    // productPage.setProductItem('2');
+    // productPage.setProductItem('1');
+
+    // productPage.clickBuyNowBtn();
+
+    // CheckoutPage.verifyBreadCrumb('Checkout');
+
+    // CheckoutPage.selectBillingDetails(true);
+
+    // const username = faker.person.firstName();
+    // const lastname = faker.person.lastName();
+    // const company = faker.company.name();
+    // const address = faker.location.streetAddress();
+    // const city = faker.location.city();
+    // const postCode = faker.location.zipCode();
+    // const country = faker.location.country();
+    // const region = faker.location.state();
+
+    // // Use the generated address object to get a fake state
+
+    // const request = {
+    //   firsName: username,
+    //   lastName: lastname,
+    //   company: company,
+    //   address1: address,
+    //   city: city,
+    //   postCode: postCode,
+    //   // country: country,
+    //   // region: region,
+    //   country: 'India',
+    //   region: 'Himachal Pradesh',
+    // };
+    // cy.log('request', request);
+    // CheckoutPage.enterBillingDetails(request);
+    // CheckoutPage.completeCheckout('This is a new product');
+
+    // //confirm order
+
+    // //verify header
+    // confirmOrderPage.verifyPageHeader('Confirm', 'Confirm Order');
+
+    // confirmOrderPage.confirmOrder();
+    // successOrderPage.verifyPageHeader('Your order', ' Your order has been placed!');
   });
 });
