@@ -187,6 +187,11 @@ describe('template spec', () => {
     // cy.login();
 
     cy.visit('/');
+    cy.log('projectId-', Cypress.env('products_url'));
+    cy.logMessage('opening page', 'info');
+
+    //for error
+    cy.logMessage('this is error', 'error');
 
     // //with user
     // cy.login(this.newData);

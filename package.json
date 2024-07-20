@@ -12,11 +12,17 @@
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@types/winston": "^2.4.4",
     "cypress": "^13.6.4",
     "eslint-plugin-chai-friendly": "^0.7.4",
     "eslint-plugin-cypress": "^2.15.1",
     "fast-csv": "^5.0.1",
     "neat-csv": "^5.2.0",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "setimmediate": "^1.0.5",
+    "winston": "^2.4.7",
+    "winston-transport-browserconsole": "^1.0.5"
   }
 }

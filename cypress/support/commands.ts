@@ -26,6 +26,7 @@
 
 import navigationPage from '../e2e/pages/Accounts/NavigationPage';
 import loginPage from '../e2e/pages/Accounts/LoginPage';
+import logger from '../../logger';
 
 export default function addCustomCommands() {
   Cypress.Commands.add('login', function (userDetails?) {
@@ -109,5 +110,9 @@ export default function addCustomCommands() {
       const newData = `${data}\n${email},${password}`;
       cy.task('writeFileCSV', { fileName: fileName, data: newData });
     });
+  });
+
+  Cypress.Commands.add('logMessage', (message, level = 'info') => {
+    logger.log({ level, message });
   });
 }

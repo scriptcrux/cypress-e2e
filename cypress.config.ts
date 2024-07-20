@@ -1,16 +1,20 @@
 // const { defineConfig } = require('cypress');
 // const fs = require('fs');
 // const neatCSV = require('neat-csv');
-import { defineConfig } from 'cypress';
+import { defineConfig as baseConfig } from 'cypress';
 import * as fs from 'fs';
 import neatCsv from 'neat-csv';
 import path from 'path';
 
-export default defineConfig({
+export default baseConfig({
   e2e: {
     // baseUrl: 'https://example.cypress.io',
     baseUrl: 'https://ecommerce-playground.lambdatest.io/index.php',
     pageLoadTimeout: 120000,
+    env: {
+      login_url: '/login',
+      products_url: '/products',
+    },
     async setupNodeEvents(on, config) {
       // createe task to read from csv
       // const fileName = 'D:/FrondEnd/Testing/framework/cypress-e2e/cypress/fixtures/login.csv';
